@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#070a1f">
 <title>CodeVerse | Software, seguridad y tecnología</title>
 <meta name="description" content="CodeVerse: desarrollo web, apps Android, software a medida, sistemas de seguridad, cámaras de vigilancia y mantenimiento de computadoras.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,26 +22,33 @@
   --ease:cubic-bezier(.2,.7,.2,1);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:'Outfit','Segoe UI',system-ui,sans-serif;color:var(--txt);background:radial-gradient(ellipse at 50% 0%,var(--bg2),var(--bg) 62%) fixed;line-height:1.6;overflow-x:hidden}
+html{scroll-behavior:smooth;background:#070a1f;color-scheme:dark;overscroll-behavior:none}
+body{font-family:'Outfit','Segoe UI',system-ui,sans-serif;color:var(--txt);background:radial-gradient(ellipse at 50% 0%,var(--bg2),var(--bg) 62%);line-height:1.6;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 
 /* ===== FONDO: nebulosas, planetas, canvas de estrellas ===== */
-#bg,#sky{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block}
+#bg,#sky{position:fixed;left:0;top:0;width:100%;height:100%;min-height:100lvh;z-index:0;display:block;transform:translateZ(0)}
 .neb,.pl{position:fixed;pointer-events:none;z-index:0;border-radius:50%}
 .neb{filter:blur(40px);opacity:.28;animation:drift 45s ease-in-out infinite alternate}
 .n1{width:62vw;height:62vw;left:-18vw;top:-14vw;background:radial-gradient(circle,#5a3ad8,transparent 65%)}
 .n2{width:56vw;height:56vw;right:-18vw;top:38vh;background:radial-gradient(circle,#2b4fd6,transparent 65%);animation-duration:60s}
 .n3{width:46vw;height:46vw;left:22vw;bottom:-22vw;background:radial-gradient(circle,#8a3fd0,transparent 65%);animation-duration:52s}
 @keyframes drift{to{transform:translate3d(7vw,4vh,0) scale(1.18)}}
-.pl{overflow:hidden;background:#2a2a5a repeat-x 0 0/auto 100%;animation:flo var(--f,14s) ease-in-out infinite alternate,spin var(--s,160s) linear infinite}
+.pl{overflow:hidden;background:#2a2a5a repeat-x 0 0/auto 100%;animation:spin var(--s,160s) linear infinite;will-change:transform}
 .pl::after{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 30% 27%,rgba(255,255,255,.3),transparent 20%),radial-gradient(circle at 34% 31%,transparent 36%,rgba(2,3,18,.55) 68%,rgba(2,3,18,.93) 100%);box-shadow:inset 0 0 16px rgba(190,170,255,.4)}
+.p4{--sz:120px;--s:200s;width:var(--sz);height:var(--sz);background-color:#2c2a8a;box-shadow:0 0 40px rgba(60,200,190,.28)}
+.pl.gl{animation:none;background:none}
+.pl.gl::after{display:none}
+.astro{position:fixed;left:0;top:0;z-index:9;width:clamp(88px,13vw,140px);height:auto;pointer-events:none;visibility:hidden;transform-origin:50% 100%;transform:translate(-50%,-100%) translateY(105%);filter:drop-shadow(0 8px 16px rgba(0,0,0,.5))}
+.astro .eyes{animation:look 3.2s ease-in-out infinite}.astro .led{animation:blink 1.4s steps(2) infinite}
+@keyframes look{0%,100%{transform:translateX(-2.2px)}50%{transform:translateX(2.2px)}}
+@keyframes blink{50%{opacity:.15}}
 @keyframes spin{to{background-position-x:calc(var(--sz)*-2)}}
 @keyframes flo{to{transform:translate3d(14px,-28px,0)}}
-.p1{--sz:150px;--f:15s;--s:140s;width:var(--sz);height:var(--sz);right:8vw;top:15vh;background-color:#4a2fb0;box-shadow:0 0 60px rgba(109,76,255,.4)}
-.p2{--sz:68px;--f:11s;--s:90s;width:var(--sz);height:var(--sz);left:6vw;top:60vh;background-color:#c58a3a;box-shadow:0 0 30px rgba(255,196,107,.3)}
-.p3{--sz:260px;--f:18s;--s:220s;width:var(--sz);height:var(--sz);left:-90px;bottom:-70px;background-color:#2a3fa8;box-shadow:0 0 50px rgba(80,120,255,.28)}
+.p1{--sz:150px;--f:15s;--s:60s;width:var(--sz);height:var(--sz);right:8vw;top:15vh;background-color:#4a2fb0;box-shadow:0 0 60px rgba(109,76,255,.4)}
+.p2{--sz:68px;--f:11s;--s:30s;width:var(--sz);height:var(--sz);left:6vw;top:60vh;background-color:#c58a3a;box-shadow:0 0 30px rgba(255,196,107,.3)}
+.p3{--sz:260px;--f:18s;--s:110s;width:var(--sz);height:var(--sz);left:-90px;bottom:-70px;background-color:#2a3fa8;box-shadow:0 0 50px rgba(80,120,255,.28)}
 
 /* ===== CRISTAL LÍQUIDO ===== */
 .glass{position:relative;overflow:hidden;border-radius:26px;
@@ -72,12 +80,17 @@ section{padding:110px 22px;max-width:1080px;margin:0 auto}
 .hero-logo .pn{animation:breathe 5s ease-in-out infinite alternate}
 .hero-logo .halo{animation:halo 4.5s ease-out infinite}.hero-logo .h2{animation-delay:2.25s}
 .hero-logo .sp{animation:tw 3s ease-in-out infinite}.hero-logo .s2{animation-delay:1.5s}
+.avatar-sat{width:96px;flex:none;filter:drop-shadow(0 0 14px rgba(255,196,107,.4))}
 @keyframes tilt{from{transform:rotate(-30deg)}to{transform:rotate(-10deg)}}
 @keyframes breathe{to{transform:scale(1.07)}}
 @keyframes halo{from{opacity:.7;transform:scale(1)}to{opacity:0;transform:scale(2.2)}}
 @keyframes tw{0%,100%{opacity:.15;transform:scale(.3) rotate(0)}50%{opacity:1;transform:scale(1) rotate(45deg)}}
 h1{font-family:Orbitron,sans-serif;font-weight:800;font-size:clamp(1.7rem,9.6vw,5rem);letter-spacing:clamp(.04em,1.4vw,.12em);margin:18px 0 8px;white-space:nowrap;perspective:600px}
 h1 .l{display:inline-block;text-shadow:0 0 18px rgba(109,76,255,.55);animation:lin 1.3s var(--ease) backwards,glint 6s ease-in-out infinite;animation-delay:calc(var(--i)*.08s + .35s),calc(var(--i)*.14s + 2.6s)}
+.w{display:inline-block;white-space:nowrap}
+h2 .l{display:inline-block;text-shadow:0 0 18px rgba(109,76,255,.55)}
+h2.in .l{animation:lin 1.1s var(--ease) backwards,glint 6s ease-in-out infinite;animation-delay:calc(var(--i)*.05s),calc(var(--i)*.1s + 1.8s)}
+.js h2:not(.in) .l{opacity:0}
 @keyframes lin{from{opacity:0;transform:translateY(40px) rotateX(-80deg) scale(.6);filter:blur(10px)}}
 @keyframes glint{0%,60%,100%{text-shadow:0 0 18px rgba(109,76,255,.55)}30%{color:var(--gold);text-shadow:0 0 28px rgba(255,196,107,.9);transform:translateY(-5px)}}
 .tag{font-size:clamp(1.05rem,2.6vw,1.35rem);color:var(--gold);font-weight:300;letter-spacing:.04em}
@@ -85,11 +98,9 @@ h1 .l{display:inline-block;text-shadow:0 0 18px rgba(109,76,255,.55);animation:l
 .btns{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
 .btn{padding:13px 30px;border-radius:999px;font-weight:600;transition:transform .6s var(--ease),box-shadow .6s var(--ease)}
 .btn:hover{transform:translateY(-4px)}
-.btn.main{background:var(--gold);color:#201400;box-shadow:0 8px 28px rgba(255,196,107,.3)}
-.btn.main:hover{box-shadow:0 12px 36px rgba(255,196,107,.5)}
+.btn.main{background:var(--gold);color:#201400}
 .btn.ghost{border-radius:999px}
 h2{font-family:Orbitron,sans-serif;font-weight:600;font-size:clamp(1.6rem,4.6vw,2.4rem);text-align:center;letter-spacing:.06em}
-h2::after{content:"";display:block;width:64px;height:3px;border-radius:3px;margin:14px auto 0;background:linear-gradient(90deg,var(--vio),var(--gold))}
 .sub{text-align:center;color:var(--mut);max-width:560px;margin:18px auto 46px}
 
 /* servicios */
@@ -110,8 +121,14 @@ h2::after{content:"";display:block;width:64px;height:3px;border-radius:3px;margi
 .contact{display:flex;align-items:center;gap:18px;padding:24px 26px}
 .contact .logo{flex:none;width:62px;height:62px;border-radius:19px;display:grid;place-items:center;color:#fff}
 .contact .logo svg{width:34px;height:34px}
-.wa .logo{background:linear-gradient(135deg,#3ee27f,#128c4a)}
-.ig .logo{background:linear-gradient(45deg,#f9a03f,#e1306c 55%,#7b3fe4)}
+.wa .logo{background:linear-gradient(135deg,#3ee27f,#128c4a);--ring:rgba(62,226,127,.55);animation:ping 2.8s ease-out infinite}
+.wa .logo svg{animation:ringing 4s ease-in-out infinite}
+.ig .logo svg{animation:igpop 4.5s ease-in-out infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 var(--ring)}75%,100%{box-shadow:0 0 0 16px transparent}}
+@keyframes igshift{to{background-position:100% 100%}}
+@keyframes ringing{0%,55%,100%{transform:rotate(0)}60%{transform:rotate(-16deg)}66%{transform:rotate(14deg)}72%{transform:rotate(-10deg)}78%{transform:rotate(8deg)}84%{transform:rotate(0)}}
+@keyframes igpop{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(1.14) rotate(-6deg)}}
+.ig .logo{background:linear-gradient(45deg,#f9a03f,#e1306c 40%,#7b3fe4 70%,#f9a03f) 0 0/220% 220%;--ring:rgba(225,48,108,.5);animation:ping 3.2s ease-out infinite,igshift 7s ease-in-out infinite alternate}
 .contact b{display:block;font-size:1.12rem;font-weight:600}
 .contact span{color:var(--mut);font-size:.95rem}
 .contact small{display:block;color:var(--gold);margin-top:2px}
@@ -122,7 +139,7 @@ footer svg{width:26px;height:26px}
 /* ===== ANIMACIÓN DE ENTRADA (suave) ===== */
 .js .rv:not(.in){opacity:0}
 .rv.in{animation:rise 1.1s var(--ease) backwards;animation-delay:var(--d,0s)}
-@keyframes rise{from{opacity:0;transform:translateY(34px) scale(.98);filter:blur(8px)}}
+@keyframes rise{from{opacity:0;transform:translateY(34px) scale(.98)}}
 
 @media(max-width:640px){
   nav{gap:8px;padding:6px 8px 6px 12px}
@@ -134,9 +151,10 @@ footer svg{width:26px;height:26px}
   .btns{width:100%;flex-direction:column}.btn{width:100%;text-align:center}
   .profile{flex-direction:column;text-align:center;padding:28px 22px}
   .contact{padding:20px}
-  .p1{--sz:90px;right:4vw}.p2{--sz:48px}.p3{--sz:170px}
+  .p1{--sz:90px;right:4vw}.p2{--sz:48px}.p3{--sz:170px}.p4{--sz:64px}
 }
 @media(min-width:1400px){html{font-size:18px}section{max-width:1200px}}
+@media(hover:none){.gl-ok .neb{display:none}.glass{-webkit-backdrop-filter:blur(9px) saturate(150%);backdrop-filter:blur(9px) saturate(150%)}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
 </style>
 </head>
@@ -160,7 +178,7 @@ footer svg{width:26px;height:26px}
 <canvas id="bg"></canvas>
 <canvas id="sky"></canvas>
 <div class="neb n1"></div><div class="neb n2"></div><div class="neb n3"></div>
-<div class="pl p1"></div><div class="pl p2"></div><div class="pl p3"></div>
+<div class="pl p1"></div><div class="pl p2"></div><div class="pl p3"></div><div class="pl p4"></div>
 
 <nav class="glass">
   <a class="brand" href="#inicio"><svg><use href="#saturno"/></svg><span>CODEVERSE</span></a>
@@ -195,7 +213,7 @@ footer svg{width:26px;height:26px}
 
   <!-- PANTALLA 2: A QUÉ NOS DEDICAMOS -->
   <section id="servicios">
-    <h2 class="rv">¿A qué nos dedicamos?</h2>
+    <h2>¿A qué nos dedicamos?</h2>
     <p class="sub rv">Desde una idea en código hasta la cámara que cuida tu negocio.</p>
     <div class="grid">
       <article class="glass card hov rv"><div class="ic">🌐</div><h3>Desarrollo web</h3><p>Páginas y sistemas web rápidos, modernos y adaptados a cualquier pantalla.</p></article>
@@ -209,11 +227,21 @@ footer svg{width:26px;height:26px}
 
   <!-- PANTALLA 3: CONTACTO -->
   <section id="contacto">
-    <h2 class="rv">Hablemos</h2>
-    <p class="sub rv">Cuéntame qué necesitas y te respondo personalmente.</p>
+    <h2>Hablemos</h2>
+    <p class="sub rv">Cuéntame qué necesitas y enseguida se te atenderá (;</p>
     <div class="box">
       <div class="glass profile rv">
-        <div class="avatar">LD</div>
+        <svg class="hero-logo avatar-sat" viewBox="0 0 64 64" aria-hidden="true">
+          <circle class="halo" cx="32" cy="32" r="14" fill="none" stroke="#ffc46b" stroke-width=".7"/>
+          <circle class="halo h2" cx="32" cy="32" r="14" fill="none" stroke="#a98bff" stroke-width=".7"/>
+          <g class="rg">
+            <ellipse cx="32" cy="32" rx="27" ry="8.5" fill="none" stroke="url(#gr)" stroke-width="3" opacity=".55"/>
+            <circle class="pn" cx="32" cy="32" r="14" fill="url(#gp)"/>
+            <path d="M5 32A27 8.5 0 0 0 59 32" fill="none" stroke="url(#gr)" stroke-width="3" stroke-linecap="round"/>
+            <circle r="1.9" fill="#fff"><animateMotion dur="6s" repeatCount="indefinite" path="M5 32A27 8.5 0 1 1 59 32A27 8.5 0 1 1 5 32"/></circle>
+          </g>
+          <path class="sp" d="M55 9l1.1 3.1 3.1 1.1-3.1 1.1L55 17.4l-1.1-3.1-3.1-1.1 3.1-1.1z" fill="#fff"/>
+        </svg>
         <div>
           <h3>Luis Dayan Martínez C.</h3>
           <p class="role">CEO de CodeVerse</p>
@@ -224,7 +252,7 @@ footer svg{width:26px;height:26px}
         <!-- WhatsApp: abre el chat con el mensaje ya escrito -->
         <a class="glass contact wa hov rv" href="https://wa.me/5356212889?text=vengo%20de%20la%20web%20oficial%20de%20codeverse" target="_blank" rel="noopener">
           <div class="logo"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8.5 7.8c.3-.5.8-.5 1.1-.1l.8 1.2c.2.3.1.7-.1 1-.3.3-.4.5-.2.9.6 1.1 1.5 2 2.7 2.6.4.2.6.1.9-.2l.6-.6c.3-.3.7-.3 1 0l1.2.9c.4.3.4.7 0 1.2-.7.9-1.7 1.2-2.9.8-2.6-1-4.6-2.9-5.6-5.5-.3-.9-.1-1.7.5-2.2z" fill="currentColor"/></svg></div>
-          <div><b>WhatsApp</b><span>+53 56 212889</span><small>Toca para escribirme</small></div>
+          <div><b>WhatsApp</b><span>+5356212889</span><small>Toca para escribirme</small></div>
         </a>
         <!-- Instagram -->
         <a class="glass contact ig hov rv" style="--d:.12s" href="https://www.instagram.com/oficialcodeverse?mdxt=MWVvcHk2ZTQxcWN5dw%3D%3D" target="_blank" rel="noopener">
@@ -241,6 +269,23 @@ footer svg{width:26px;height:26px}
   <span>© 2024 CodeVerse. Todos los derechos reservados.</span>
 </footer>
 
+<!-- Astronauta que se asoma por los bordes -->
+<svg class="astro" viewBox="0 0 100 120" aria-hidden="true">
+  <defs><linearGradient id="vis" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1a2260"/><stop offset="1" stop-color="#4b2fb5"/></linearGradient></defs>
+  <rect x="24" y="52" width="52" height="60" rx="14" fill="#8f98d0"/>
+  <path d="M14 120V86q0-26 36-26t36 26v34z" fill="#e9edff"/>
+  <rect x="35" y="84" width="30" height="20" rx="5" fill="#242b6e"/>
+  <use href="#saturno" x="41" y="85" width="18" height="18"/>
+  <path d="M26 70Q12 72 11 82M74 70Q88 72 89 82" stroke="#e9edff" stroke-width="13" stroke-linecap="round" fill="none"/>
+  <circle cx="11" cy="82" r="8" fill="#ffc46b"/><circle cx="89" cy="82" r="8" fill="#ffc46b"/>
+  <line x1="74" y1="16" x2="82" y2="5" stroke="#c9d0f5" stroke-width="3" stroke-linecap="round"/><circle class="led" cx="82" cy="5" r="3.4" fill="#ffc46b"/>
+  <circle cx="50" cy="38" r="31" fill="#f4f6ff" stroke="#c9d0f5" stroke-width="3"/>
+  <circle cx="19" cy="40" r="5" fill="#c9d0f5"/><circle cx="81" cy="40" r="5" fill="#c9d0f5"/>
+  <ellipse cx="50" cy="40" rx="22" ry="18" fill="url(#vis)"/>
+  <path d="M35 31q7-9 18-9" stroke="#fff" opacity=".55" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <g class="eyes"><ellipse cx="43" cy="42" rx="3.2" ry="4.6" fill="#fff"/><ellipse cx="57" cy="42" rx="3.2" ry="4.6" fill="#fff"/></g>
+</svg>
+
 <script>
 document.documentElement.classList.add('js');
 
@@ -248,7 +293,7 @@ document.documentElement.classList.add('js');
 const io = new IntersectionObserver(es => es.forEach(e => {
   if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
 }), { threshold: .15 });
-document.querySelectorAll('.rv').forEach(el => io.observe(el));
+document.querySelectorAll('.rv, h2').forEach(el => io.observe(el));
 
 /* Brillo del cristal que sigue al cursor */
 document.querySelectorAll('.glass').forEach(g => g.addEventListener('pointermove', e => {
@@ -258,10 +303,16 @@ document.querySelectorAll('.glass').forEach(g => g.addEventListener('pointermove
 }));
 
 /* Título: cada letra entra y luego un destello dorado recorre la palabra */
-const h1 = document.querySelector('h1'), T = h1.textContent.trim();
-h1.setAttribute('aria-label', T);
-h1.innerHTML = [...T].map((ch, i) => `<span class="l" aria-hidden="true" style="--i:${i};color:color-mix(in srgb,#fff ${Math.round(30 + 140 * Math.abs(i / (T.length - 1) - .5))}%,#a98bff)">${ch}</span>`).join('');
-if (matchMedia('(prefers-reduced-motion: reduce)').matches) document.querySelector('.hero-logo').pauseAnimations();
+function split(el) {   // separa el texto en palabras y letras para animarlas una a una
+  const T = el.textContent.trim(), n = T.replace(/\s/g, '').length; let i = 0;
+  el.setAttribute('aria-label', T);
+  el.innerHTML = T.split(' ').map(w => '<span class="w">' + [...w].map(ch => {
+    const k = i++;
+    return `<span class="l" aria-hidden="true" style="--i:${k};color:color-mix(in srgb,#fff ${Math.round(30 + 140 * Math.abs(k / (n - 1) - .5))}%,#a98bff)">${ch}</span>`;
+  }).join('') + '</span>').join(' ');
+}
+document.querySelectorAll('h1, h2').forEach(split);
+if (matchMedia('(prefers-reduced-motion: reduce)').matches) document.querySelectorAll('.hero-logo').forEach(v => v.pauseAnimations());
 
 /* Planetas realistas: se pintan con ruido (como nubes y relieve) y giran lentamente */
 const hs = (x, y) => { const v = Math.sin(x * 127.1 + y * 311.7) * 43758.5453; return v - Math.floor(v); };
@@ -272,6 +323,48 @@ function vn(x, y, P) {   // ruido que se repite en horizontal (para que la rotac
 }
 function fb(x, y, P) { let s = 0, a = .5; for (let i = 0; i < 4; i++) { s += a * vn(x, y, P); x *= 2; y *= 2; P *= 2; a /= 2; } return s; }
 const mx = (a, b, t) => a.map((p, i) => p + (b[i] - p) * Math.min(Math.max(t, 0), 1));
+const PL = [];   // planetas 3D
+const SPIN = { '.p1': [.25, 1 / 55], '.p2': [-.35, 1 / 28], '.p3': [.1, 1 / 100], '.p4': [.41, 1 / 160] };   // [inclinación del eje, vueltas por segundo]
+function sphere(el, tex, tilt, rps) {   // dibuja la textura sobre una esfera con luz y la hace girar
+  const cv = document.createElement('canvas'); cv.style.cssText = 'position:absolute;inset:0;width:100%;height:100%';
+  const gl = cv.getContext('webgl', { antialias: false });
+  if (!gl) return false;
+  const sh = (t, src) => { const o = gl.createShader(t); gl.shaderSource(o, src); gl.compileShader(o); return o; };
+  const pr = gl.createProgram();
+  gl.attachShader(pr, sh(gl.VERTEX_SHADER, 'attribute vec2 a;varying vec2 v;void main(){v=a;gl_Position=vec4(a,0.,1.);}'));
+  gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, `
+#ifdef GL_FRAGMENT_PRECISION_HIGH
+precision highp float;
+#else
+precision mediump float;
+#endif
+varying vec2 v;uniform sampler2D tx;uniform float rot,tl;
+void main(){
+  float d=dot(v,v);if(d>1.)discard;
+  vec3 n=vec3(v,sqrt(1.-d));
+  float c=cos(tl),s=sin(tl);vec3 q=vec3(c*n.x-s*n.y,s*n.x+c*n.y,n.z);            // eje inclinado
+  vec2 uv=vec2(fract(atan(q.x,q.z)/6.2831853+rot),.5-asin(clamp(q.y,-1.,1.))/3.14159265);
+  vec3 col=texture2D(tx,uv).rgb;
+  float df=max(dot(n,normalize(vec3(-.55,.5,.65))),0.);                           // luz del "sol"
+  col*=(.05+1.1*df)*mix(.55,1.,n.z);
+  col+=vec3(.45,.5,1.)*pow(1.-n.z,3.)*.3*(.25+df);                                // atmósfera en el borde
+  float a=1.-smoothstep(.97,1.,sqrt(d));
+  gl_FragColor=vec4(col*a,a);}`));
+  gl.linkProgram(pr); gl.useProgram(pr);
+  gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,1,-1,-1,1,1,1]), gl.STATIC_DRAW);
+  const a = gl.getAttribLocation(pr, 'a'); gl.enableVertexAttribArray(a); gl.vertexAttribPointer(a, 2, gl.FLOAT, false, 0, 0);
+  gl.bindTexture(gl.TEXTURE_2D, gl.createTexture());
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, tex);
+  const ur = gl.getUniformLocation(pr, 'rot'); gl.uniform1f(gl.getUniformLocation(pr, 'tl'), tilt);
+  gl.clearColor(0, 0, 0, 0);
+  const fit = () => { cv.width = cv.height = Math.round(el.offsetWidth * Math.min(devicePixelRatio || 1, matchMedia('(hover: none)').matches ? 1 : 2)); gl.viewport(0, 0, cv.width, cv.height); };
+  el.appendChild(cv); el.classList.add('gl'); fit(); addEventListener('resize', fit);
+  PL.push({ draw: t => { gl.uniform1f(ur, (t / 1000 * rps) % 1); gl.clear(gl.COLOR_BUFFER_BIT); gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4); } });
+  return true;
+}
 function planet(sel, color) {
   const el = document.querySelector(sel), w = 384, h = 192, c = document.createElement('canvas');
   c.width = w; c.height = h;
@@ -281,7 +374,8 @@ function planet(sel, color) {
     im.data[k] = r; im.data[k + 1] = gr; im.data[k + 2] = b; im.data[k + 3] = 255;
   }
   g.putImageData(im, 0, 0);
-  el.style.backgroundImage = `url(${c.toDataURL()})`;
+  const [tilt, rps] = SPIN[sel];
+  if (!sphere(el, c, tilt, rps)) el.style.backgroundImage = `url(${c.toDataURL()})`;   // sin WebGL: textura que se desliza
 }
 // Gigante gaseoso violeta con bandas y una tormenta dorada
 planet('.p1', (u, v) => {
@@ -301,11 +395,21 @@ planet('.p3', (u, v) => {
   const n = fb(u * 8, v * 5, 8), cl = fb(u * 14 + n * 3, v * 7 + n * 2, 14);
   return mx(mx([16, 34, 112], [76, 118, 235], n), [228, 238, 255], (cl - .52) * 2.4);
 });
+// Planeta tipo Tierra con los colores de la marca: océanos violeta, continentes turquesa y dorado, nubes y polos helados
+planet('.p4', (u, v) => {
+  const n = fb(u * 5, v * 3, 5) + fb(u * 12 + 3, v * 7, 12) * .25, lat = Math.abs(v - .5) * 2;
+  let c = n > .62
+    ? mx([20, 150, 140], [235, 190, 105], fb(u * 20, v * 10, 20) * 1.4 + lat * .3)          // tierra
+    : mx(mx([22, 20, 98], [70, 52, 190], n * 1.3), [45, 175, 195], (n - .52) * 7);           // mar (más claro cerca de la costa)
+  c = mx(c, [240, 236, 255], (fb(u * 9 + n * 2, v * 6, 9) - .55) * 2.6);                     // nubes
+  return mx(c, [245, 245, 255], (lat - .86) * 7);                                            // hielo en los polos
+});
 
 /* Fondo vivo: nebulosa que se deforma lentamente (WebGL) */
 (() => {
   const cv = document.getElementById('bg'), gl = cv.getContext('webgl', { antialias: false });
   if (!gl) return;   // si el dispositivo no soporta WebGL, quedan las nebulosas CSS
+  document.documentElement.classList.add('gl-ok');
   const sh = (t, src) => { const o = gl.createShader(t); gl.shaderSource(o, src); gl.compileShader(o); return o; };
   const pr = gl.createProgram();
   gl.attachShader(pr, sh(gl.VERTEX_SHADER, 'attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}'));
@@ -327,6 +431,9 @@ void main(){
   vec3 col=vec3(.027,.039,.122);                    // 60% azul profundo
   col=mix(col,vec3(.2,.12,.5),smoothstep(.3,.85,w));          // 30% violeta
   col=mix(col,vec3(.32,.14,.5),smoothstep(.45,1.,q*w*1.7)*.7);
+  float z=fbm(p*.9+vec2(-t*.03,t*.04)+9.);             // nebulosa turquesa (contraste)
+  float d2=min(length((uv-vec2(.85,.3))*vec2(1.3,1.)),length((uv-vec2(.12,.88))*vec2(1.3,1.)));
+  col=mix(col,vec3(.04,.62,.6),(1.-smoothstep(.05,.62,d2))*smoothstep(.3,.8,z)*.8);
   col+=vec3(1.,.77,.42)*pow(max(w-.72,0.),2.)*.9;   // 10% destellos dorados
   col*=1.-.45*length(uv-.5);
   gl_FragColor=vec4(col,1.);}`));
@@ -339,7 +446,10 @@ void main(){
   const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
   // Se dibuja a baja resolución y el navegador lo estira: se ve suave y gasta poca batería
   function size() { const k = innerWidth < 700 ? .3 : .45; cv.width = innerWidth * k; cv.height = innerHeight * k; gl.viewport(0, 0, cv.width, cv.height); }
+  const slow = matchMedia('(hover: none)').matches; let lt = 0;   // en celulares: 30 imágenes por segundo
   function draw(ms) {
+    if (slow && ms - lt < 33) { requestAnimationFrame(draw); return; }
+    lt = ms;
     gl.uniform2f(ur, cv.width, cv.height); gl.uniform1f(ut, ms / 1000);
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
     if (!still) requestAnimationFrame(draw);
@@ -352,15 +462,35 @@ void main(){
 /* Cielo: estrellas titilantes, constelaciones y cometas */
 const c = document.getElementById('sky'), x = c.getContext('2d');
 const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const touch = matchMedia('(hover: none)').matches;
 let W, H, stars = [], comets = [], next = 2500, last = 0;
-// Constelaciones: puntos (x,y en proporción de la pantalla) y líneas entre ellos
-const cons = [
-  { p: [[.07,.2],[.13,.14],[.2,.17],[.26,.12],[.32,.22],[.39,.28],[.35,.36]], l: [[0,1],[1,2],[2,3],[3,4],[4,5],[5,6],[4,6]] },
-  { p: [[.7,.8],[.75,.71],[.8,.79],[.85,.7],[.9,.79]], l: [[0,1],[1,2],[2,3],[3,4]] },
-  { p: [[.52,.1],[.58,.19],[.65,.14],[.6,.3]], l: [[0,1],[1,2],[1,3]] }
-];
+// Constelaciones con forma de símbolos de programación.
+// Cada símbolo = puntos (estrellas) en una caja de -0.5 a 0.5 + líneas que los unen (pares de índices)
+const G = {
+  '{': { p: [[.15,-.5],[-.05,-.38],[-.05,-.12],[-.2,0],[-.05,.12],[-.05,.38],[.15,.5]], l: [[0,1],[1,2],[2,3],[3,4],[4,5],[5,6]] },
+  '}': { p: [[-.15,-.5],[.05,-.38],[.05,-.12],[.2,0],[.05,.12],[.05,.38],[-.15,.5]], l: [[0,1],[1,2],[2,3],[3,4],[4,5],[5,6]] },
+  '=': { p: [[-.4,-.15],[0,-.15],[.4,-.15],[-.4,.15],[0,.15],[.4,.15]], l: [[0,1],[1,2],[3,4],[4,5]] },
+  '+': { p: [[0,-.45],[0,0],[0,.45],[-.45,0],[.45,0]], l: [[0,1],[1,2],[3,1],[1,4]] },
+  '#': { p: [[-.15,-.45],[-.15,.45],[.15,-.45],[.15,.45],[-.45,-.15],[.45,-.15],[-.45,.15],[.45,.15]], l: [[0,1],[2,3],[4,5],[6,7]] },
+  '/': { p: [[.3,-.5],[.1,-.17],[-.1,.17],[-.3,.5]], l: [[0,1],[1,2],[2,3]] },
+  '<': { p: [[.3,-.4],[0,-.2],[-.3,0],[0,.2],[.3,.4]], l: [[0,1],[1,2],[2,3],[3,4]] },
+  '>': { p: [[-.3,-.4],[0,-.2],[.3,0],[0,.2],[-.3,.4]], l: [[0,1],[1,2],[2,3],[3,4]] },
+  ';': { p: [[0,-.25],[0,.12],[-.1,.4]], l: [[1,2]] }
+};
+// [símbolo, x, y (0 a 1 de la pantalla), tamaño, rotación en grados]
+const LAYOUT = [['{',.08,.2,.16,-8],['}',.92,.34,.14,6],['=',.2,.74,.12,-10],['+',.76,.14,.1,12],['#',.55,.84,.14,-6],
+  ['/',.42,.12,.12,0],['<',.1,.5,.1,10],['>',.88,.64,.11,-12],[';',.66,.5,.09,8],['#',.3,.36,.08,14]];
+const syms = LAYOUT.map((q, i) => ({ d: G[q[0]], x: q[1], y: q[2], z: q[3], r: q[4] * Math.PI / 180, o: i * 1.7 }));
+// Órbitas: los planetas giran alrededor del centro; los más cercanos van más rápido (T = segundos por vuelta)
+const ORB = [
+  { s: '.p2', rx: .2,  ry: .16, T: 55,  ph: 3.7 },
+  { s: '.p1', rx: .34, ry: .27, T: 130, ph: 5.2 },
+  { s: '.p3', rx: .47, ry: .37, T: 260, ph: 2.4 },
+  { s: '.p4', rx: .405, ry: .32, T: 380, ph: .9 }   // el más lento al orbitar
+].map(o => { o.e = document.querySelector(o.s); o.e.style.cssText += ';left:0;top:0;right:auto;bottom:auto'; return o; });
+const TILT = -.2;
 function resize() {
-  const D = Math.min(devicePixelRatio || 1, 2);
+  const D = Math.min(devicePixelRatio || 1, matchMedia('(hover: none)').matches ? 1.5 : 2);
   W = innerWidth; H = innerHeight;
   c.width = W * D; c.height = H * D;
   x.setTransform(D, 0, 0, D, 0, 0);
@@ -374,22 +504,36 @@ function spawnComet() {
   comets.push({ x: W * (.35 + Math.random() * .75), y: -30, vx: Math.cos(a) * s, vy: Math.sin(a) * s });
 }
 function frame(t) {
+  if (touch && t - last < 30) { if (!RM) requestAnimationFrame(frame); return; }   // celulares: 30 fps
   const dt = Math.min((t - last) / 1000, .05); last = t;
   x.clearRect(0, 0, W, H);
+  const cx = W / 2, cy = H / 2, ct = Math.cos(TILT), st = Math.sin(TILT);
+  x.save(); x.setLineDash([3, 12]); x.strokeStyle = 'rgba(169,139,255,.1)'; x.lineWidth = 1;   // rastro de cada órbita
+  for (const o of ORB) { x.beginPath(); x.ellipse(cx, cy, o.rx * W, o.ry * H, TILT, 0, 6.283); x.stroke(); }
+  x.restore();
+  for (const o of ORB) {
+    const a = o.ph + t / 1000 * 6.283 / o.T, ex = Math.cos(a) * o.rx * W, ey = Math.sin(a) * o.ry * H;
+    const px = cx + ex * ct - ey * st, py = cy + ex * st + ey * ct, w = o.e.offsetWidth, sc = .9 + .18 * Math.sin(a);  // más grande al pasar "cerca"
+    o.e.style.transform = `translate3d(${px - w / 2}px,${py - w / 2}px,0) scale(${sc})`;
+  }
+  for (const q of PL) q.draw(t);
   for (const s of stars) {
     const a = RM ? .7 : .35 + .65 * (Math.sin(t / 1000 * s.v + s.o) * .5 + .5);
     x.fillStyle = s.g ? `rgba(255,214,150,${a})` : `rgba(255,255,255,${a})`;
     x.beginPath(); x.arc(s.x, s.y, s.r, 0, 6.283); x.fill();
   }
-  for (const k of cons) {
-    const al = .3 + .15 * Math.sin(t / 2200);
-    x.strokeStyle = `rgba(169,139,255,${al})`; x.lineWidth = 1;
+  const ph = t / 1000, big = W >= 700;
+  for (const k of (big ? syms : syms.slice(0, 7))) {      // en móvil, menos símbolos para no saturar
+    const m = Math.min(W, H) * (big ? 1.1 : 1.9) * k.z, cs = Math.cos(k.r), sn = Math.sin(k.r);
+    const ox = Math.sin(ph * .25 + k.o) * 8, oy = Math.cos(ph * .2 + k.o) * 8;   // flotan suavemente
+    const P = k.d.p.map(([a, b]) => [k.x * W + ox + (a * cs - b * sn) * m, k.y * H + oy + (a * sn + b * cs) * m]);
+    x.strokeStyle = `rgba(169,139,255,${.28 + .17 * Math.sin(ph * .9 + k.o)})`; x.lineWidth = 1.2;
     x.beginPath();
-    for (const [i, j] of k.l) { x.moveTo(k.p[i][0] * W, k.p[i][1] * H); x.lineTo(k.p[j][0] * W, k.p[j][1] * H); }
+    for (const [i, j] of k.d.l) { x.moveTo(P[i][0], P[i][1]); x.lineTo(P[j][0], P[j][1]); }
     x.stroke();
-    for (const [px, py] of k.p) {
+    for (const [px, py] of P) {
       x.fillStyle = 'rgba(255,236,200,.95)'; x.shadowColor = '#ffc46b'; x.shadowBlur = 8;
-      x.beginPath(); x.arc(px * W, py * H, 2, 0, 6.283); x.fill(); x.shadowBlur = 0;
+      x.beginPath(); x.arc(px, py, 2, 0, 6.283); x.fill(); x.shadowBlur = 0;
     }
   }
   if (!RM) {
@@ -412,6 +556,23 @@ let lw = innerWidth;   // en móvil la barra del navegador cambia la altura: sol
 addEventListener('resize', () => { if (innerWidth !== lw) { lw = innerWidth; resize(); } });
 resize();
 requestAnimationFrame(frame);
+
+/* Astronauta: de vez en cuando se asoma por un borde al azar, mira alrededor y se esconde por donde vino */
+const as = document.querySelector('.astro');
+function schedule() { setTimeout(peek, 14000 + Math.random() * 14000); }
+function peek() {
+  if (document.hidden) return schedule();
+  const side = Math.floor(Math.random() * 4), r = .15 + Math.random() * .7, W = innerWidth, H = innerHeight;
+  const [px, py, th] = [[r * W, H, 0], [W, r * H, -90], [r * W, 0, 180], [0, r * H, 90]][side];   // abajo, derecha, arriba, izquierda
+  as.style.left = px + 'px'; as.style.top = py + 'px'; as.style.visibility = 'visible';
+  const f = (d, a = 0) => `translate(-50%,-100%) rotate(${th + a}deg) translateY(${d}%)`;
+  const an = as.animate([
+    { transform: f(105) }, { transform: f(38), offset: .16 }, { transform: f(38, -7), offset: .36 },
+    { transform: f(38, 7), offset: .58 }, { transform: f(38), offset: .78 }, { transform: f(105) }
+  ].map(k => ({ easing: 'ease-in-out', ...k })), { duration: 8000 });
+  an.onfinish = () => { as.style.visibility = 'hidden'; schedule(); };
+}
+if (!RM) setTimeout(peek, 7000);
 </script>
 </body>
 </html>
