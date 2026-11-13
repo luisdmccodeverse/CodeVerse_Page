@@ -40,10 +40,6 @@ a{color:inherit;text-decoration:none}
 .p4{--sz:120px;--s:200s;width:var(--sz);height:var(--sz);background-color:#2c2a8a;box-shadow:0 0 40px rgba(60,200,190,.28)}
 .pl.gl{animation:none;background:none}
 .pl.gl::after{display:none}
-.astro{position:fixed;left:0;top:0;z-index:9;width:clamp(88px,13vw,140px);height:auto;pointer-events:none;visibility:hidden;transform-origin:50% 100%;transform:translate(-50%,-100%) translateY(105%);filter:drop-shadow(0 8px 16px rgba(0,0,0,.5))}
-.astro .eyes{animation:look 3.2s ease-in-out infinite}.astro .led{animation:blink 1.4s steps(2) infinite}
-@keyframes look{0%,100%{transform:translateX(-2.2px)}50%{transform:translateX(2.2px)}}
-@keyframes blink{50%{opacity:.15}}
 @keyframes spin{to{background-position-x:calc(var(--sz)*-2)}}
 @keyframes flo{to{transform:translate3d(14px,-28px,0)}}
 .p1{--sz:150px;--f:15s;--s:60s;width:var(--sz);height:var(--sz);right:8vw;top:15vh;background-color:#4a2fb0;box-shadow:0 0 60px rgba(109,76,255,.4)}
@@ -268,23 +264,6 @@ footer svg{width:26px;height:26px}
   <svg><use href="#saturno"/></svg>
   <span>© 2024 CodeVerse. Todos los derechos reservados.</span>
 </footer>
-
-<!-- Astronauta que se asoma por los bordes -->
-<svg class="astro" viewBox="0 0 100 120" aria-hidden="true">
-  <defs><linearGradient id="vis" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1a2260"/><stop offset="1" stop-color="#4b2fb5"/></linearGradient></defs>
-  <rect x="24" y="52" width="52" height="60" rx="14" fill="#8f98d0"/>
-  <path d="M14 120V86q0-26 36-26t36 26v34z" fill="#e9edff"/>
-  <rect x="35" y="84" width="30" height="20" rx="5" fill="#242b6e"/>
-  <use href="#saturno" x="41" y="85" width="18" height="18"/>
-  <path d="M26 70Q12 72 11 82M74 70Q88 72 89 82" stroke="#e9edff" stroke-width="13" stroke-linecap="round" fill="none"/>
-  <circle cx="11" cy="82" r="8" fill="#ffc46b"/><circle cx="89" cy="82" r="8" fill="#ffc46b"/>
-  <line x1="74" y1="16" x2="82" y2="5" stroke="#c9d0f5" stroke-width="3" stroke-linecap="round"/><circle class="led" cx="82" cy="5" r="3.4" fill="#ffc46b"/>
-  <circle cx="50" cy="38" r="31" fill="#f4f6ff" stroke="#c9d0f5" stroke-width="3"/>
-  <circle cx="19" cy="40" r="5" fill="#c9d0f5"/><circle cx="81" cy="40" r="5" fill="#c9d0f5"/>
-  <ellipse cx="50" cy="40" rx="22" ry="18" fill="url(#vis)"/>
-  <path d="M35 31q7-9 18-9" stroke="#fff" opacity=".55" stroke-width="3" fill="none" stroke-linecap="round"/>
-  <g class="eyes"><ellipse cx="43" cy="42" rx="3.2" ry="4.6" fill="#fff"/><ellipse cx="57" cy="42" rx="3.2" ry="4.6" fill="#fff"/></g>
-</svg>
 
 <script>
 document.documentElement.classList.add('js');
@@ -556,23 +535,6 @@ let lw = innerWidth;   // en móvil la barra del navegador cambia la altura: sol
 addEventListener('resize', () => { if (innerWidth !== lw) { lw = innerWidth; resize(); } });
 resize();
 requestAnimationFrame(frame);
-
-/* Astronauta: de vez en cuando se asoma por un borde al azar, mira alrededor y se esconde por donde vino */
-const as = document.querySelector('.astro');
-function schedule() { setTimeout(peek, 14000 + Math.random() * 14000); }
-function peek() {
-  if (document.hidden) return schedule();
-  const side = Math.floor(Math.random() * 4), r = .15 + Math.random() * .7, W = innerWidth, H = innerHeight;
-  const [px, py, th] = [[r * W, H, 0], [W, r * H, -90], [r * W, 0, 180], [0, r * H, 90]][side];   // abajo, derecha, arriba, izquierda
-  as.style.left = px + 'px'; as.style.top = py + 'px'; as.style.visibility = 'visible';
-  const f = (d, a = 0) => `translate(-50%,-100%) rotate(${th + a}deg) translateY(${d}%)`;
-  const an = as.animate([
-    { transform: f(105) }, { transform: f(38), offset: .16 }, { transform: f(38, -7), offset: .36 },
-    { transform: f(38, 7), offset: .58 }, { transform: f(38), offset: .78 }, { transform: f(105) }
-  ].map(k => ({ easing: 'ease-in-out', ...k })), { duration: 8000 });
-  an.onfinish = () => { as.style.visibility = 'hidden'; schedule(); };
-}
-if (!RM) setTimeout(peek, 7000);
 </script>
 </body>
 </html>
